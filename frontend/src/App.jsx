@@ -1,14 +1,14 @@
 import './app.css'
-import { FormSearch } from './components/FormSearch'
-import { WebConstruction } from './components/WebConstruction'
+import { FormSearch } from './pages/FormSearch'
+import { WebConstruction } from './pages/WebConstruction'
 
 export const App = () => {
 
 
   return (
     <>
-      <WebConstruction />
-      {/* <FormSearch /> */}
+      {/* <WebConstruction /> */}
+      <FormSearch />
     </>
   )
 }
