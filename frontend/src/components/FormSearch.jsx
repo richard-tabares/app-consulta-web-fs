@@ -5,7 +5,7 @@ export const FormSearch = () => {
         query: ''
     }
 
-    const { onInputChange, query, state } = useForm(initialQuery)
+    const { onInputChange, query } = useForm(initialQuery)
     
 
 

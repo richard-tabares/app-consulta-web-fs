@@ -6,7 +6,7 @@ export const WebConstruction = () => {
   return (
     <>
 
-      <section className="w-screen h-screen text-white p-20 lg:grid lg:grid-cols-3">
+      <section className="w-screen h-screen bg-label text-white p-20 lg:grid lg:grid-cols-3">
 
         <section className="col-span-1">
 
@@ -16,7 +16,7 @@ export const WebConstruction = () => {
             We are improving our website
           </p>
           <p>
-            We'll be back as soon as possible with new cool features!
+            We will be back as soon as possible with new cool features!
           </p>
           <p>
 
