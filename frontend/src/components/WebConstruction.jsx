@@ -16,7 +16,7 @@ export const WebConstruction = () => {
             We are improving our website
           </p>
           <p>
-            We will be back as soon as possible with new cool features!
+            We'will be back as soon as possible with new cool features!
           </p>
           <p>
 
