@@ -1,12 +1,16 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export const Results = () => {
 
   const location = useLocation();
+  const navigate = useNavigate();
   const query = location.state?.query || ''
 
   const onPrint = () => {
     window.print()
+  }
+  const back = () => {
+    navigate(-1)
   }
 
   return (
@@ -182,7 +186,7 @@ export const Results = () => {
       {/* FIN FECHA DE CONSULTA */}
 
       <section className='grid grid-flow-col place-content-between'>
-        <button type="button" className='btn-send'>Volver</button>
+        <button type="button" className='btn-send' onClick={back}>Volver</button>
         <button type="button" className='btn-send' onClick={onPrint}>Imprimir</button>
       </section>
 
