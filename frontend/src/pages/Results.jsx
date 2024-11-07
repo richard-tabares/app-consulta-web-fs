@@ -5,6 +5,10 @@ export const Results = () => {
   const location = useLocation();
   const query = location.state?.query || ''
 
+  const onPrint = () => {
+    window.print()
+  }
+
   return (
 
     <section className='p-2 grid gap-3'>
@@ -179,7 +183,7 @@ export const Results = () => {
 
       <section className='grid grid-flow-col place-content-between'>
         <button type="button" className='btn-send'>Volver</button>
-        <button type="button" className='btn-send'>Imprimir</button>
+        <button type="button" className='btn-send' onClick={onPrint}>Imprimir</button>
       </section>
 
 

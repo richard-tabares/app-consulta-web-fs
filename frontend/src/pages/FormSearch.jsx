@@ -35,7 +35,7 @@ export const FormSearch = () => {
         } else {
             
             setMessageState(true)
-            setMessage('Número de la denuncia de ser de 21 caracteres')
+            setMessage('Número de la denuncia debe ser de 21 caracteres')
 
         }
 
