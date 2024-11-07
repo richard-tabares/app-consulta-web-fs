@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Message } from '../components/Message'
 import { useForm } from '../Hooks/useForm'
-import { Results } from './Results'
 import { useNavigate } from 'react-router-dom'
 
 export const FormSearch = () => {
