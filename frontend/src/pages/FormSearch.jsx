@@ -24,13 +24,10 @@ export const FormSearch = () => {
 
     const onQuery = () => {
 
-        if (query.length === 21) {
+        if (query.length > 0) {
 
             setMessageState(false)
             navigate('/consulta', { state: {query} })
-
-            console.log(query)
-
             
         } else {
             
@@ -48,7 +45,7 @@ export const FormSearch = () => {
 
             <form onSubmit={onSubmit}>
 
-                <h1 className="title mb-6">Consulta de casos registrados en la base de datos del Sistema Penas Oral Acusatorio - SPOA</h1>
+                <h1 className="title mb-6">Consulta de casos registrados en la base de datos del Sistema Penal Oral Acusatorio - SPOA</h1>
 
                 <p className="title-table mb-2">Número de denuncia <b className="text-red-600 text-sm">*</b></p>
 
