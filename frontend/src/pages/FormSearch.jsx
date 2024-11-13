@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { Message } from '../components/Message'
 import { useForm } from '../Hooks/useForm'
 import { useNavigate } from 'react-router-dom'
+import { getData } from '../helpers/getData'
 
 export const FormSearch = () => {
 
     const [message, setMessage] = useState()
     const [messageState, setMessageState] = useState(true)
+    const [jsonData, setJsonData] = useState()
     const navigate = useNavigate()
 
     const initialQuery = {
@@ -15,22 +17,32 @@ export const FormSearch = () => {
 
     const { onInputChange, query } = useForm(initialQuery)
 
-
-
-
     const onSubmit = (e) => {
         e.preventDefault()
     }
 
-    const onQuery = () => {
+    const onQuery = async () => {
 
-        if (query.length > 0) {
-
-            setMessageState(false)
-            navigate('/consulta', { state: {query} })
+        if (query.length == 23) {
             
+            const data = await getData(query)
+            const hasData = data?.RespuestaConsulta?.DatosRespuesta?.RegistroNumero
+            
+            if (hasData) {
+
+                setJsonData(data)
+
+                setMessageState(false)
+                navigate('/consulta', { state: { query } })
+
+            } else {
+
+                setMessageState(true)
+                setMessage('Número de la denuncia no existe, revisa el número de caso')
+            }
+
         } else {
-            
+
             setMessageState(true)
             setMessage('Número de la denuncia debe ser de 21 caracteres')
 
@@ -39,7 +51,6 @@ export const FormSearch = () => {
     }
 
     return (
-
 
         <section className="content-main">
 

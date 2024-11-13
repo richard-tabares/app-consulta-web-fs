@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getData } from '../helpers/getData';
 import { useEffect, useState } from 'react';
-import { xml2json } from 'xml-js';
 
 export const Results = () => {
 
@@ -10,34 +9,34 @@ export const Results = () => {
   const query = location.state?.query || ''
 
   const [jsonData, setJsonData] = useState([])
-  const [jsonData2, setJsonData2] = useState([])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const fetchData = async () => {
+    const fetchData = async () => {
 
-  //     setJsonData(await getData(query))
+      setJsonData(await getData(query))
 
-  //   }
+    }
 
-  //   fetchData()
+    fetchData()
 
-  // }, [query])
+  }, [query])
 
-  
+
   const onPrint = () => {
     window.print()
   }
   const onBack = () => {
     navigate(-1)
   }
+
+  // const uno = [...jsonData]
+  // const dos = [uno[1]]
+  // const tres = dos
+  // console.log(uno)
+  // console.log(dos)
+  // console.log(tres[0].DatosRespuesta.RegistroNumero)
   
-  setJsonData2({
-    name: "John Doe",
-    age: 30,
-    city: "New York"
-  })  
-  console.log(jsonData2)
 
   return (
 
@@ -54,27 +53,30 @@ export const Results = () => {
 
         <section className='grid grid-flow-col grid-cols-5 mb-4'>
 
-          <section className='border-r-slate-300 border-r col-span-4'>
+          <section className='border-r-slate-300 border-r col-span-3'>
 
             <p className='label'>Número de la Noticia Criminal</p>
-            
-              {
-              jsonData2.map((item, index) => (
+
+            {/* {
+              jsonData.map((item, index) => (
                   
                 <p className='important' key={index}>{item.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text}</p>
                 
                 ))
-              }
+              } */}
 
-            
 
+            <p className='important'>{jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text}</p>
+            {/* <p className='important'>{ JSON.stringify(jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text) }</p> */}
             {/* // JSON.stringify(jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text) */}
 
           </section>
-          <section className='col-span-1 justify-center grid'>
+          <section className='col-span-2 justify-center grid pl-2'>
 
             <p className='label'>Estado</p>
-            <p className='important'>Activo</p>
+            <p className='important'>
+              {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_ESTADO._text}
+            </p>
 
           </section>
 
@@ -83,31 +85,41 @@ export const Results = () => {
         <section className='bg-lable-gray'>
 
           <p className='label'>Etapa notcia criminal</p>
-          <p className='important'>Indagación</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_ETAPA._text}
+          </p>
 
         </section>
         <section className='bg-lable-gray'>
 
           <p className='label'>Departamentos hechos</p>
-          <p className='important'>Cundinamarca</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_DEPA_HECHO._text}
+          </p>
 
         </section>
         <section className='bg-lable-gray'>
 
           <p className='label'>Municipios hechos</p>
-          <p className='important'>Cajicá</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_MUNI_HECHO._text}
+          </p>
 
         </section>
         <section className='bg-lable-gray'>
 
           <p className='label'>Fechas hechos</p>
-          <p className='important'>12/Ago/2021 - 08:00</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_FECHA_HECHOS._text}
+          </p>
 
         </section>
         <section className='bg-lable-gray'>
 
           <p className='label'>Ley de aplicabilidad</p>
-          <p className='important'>Ley 90 - P. Abreviado</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_LEY._text}
+          </p>
 
         </section>
 
@@ -122,25 +134,33 @@ export const Results = () => {
         <section className='p-2'>
 
           <p className='label'>Seccional</p>
-          <p className='important'>Dirección seccion de Bogota</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.UNID_SECCIONAL._text}
+          </p>
 
         </section>
         <section className='p-2'>
 
           <p className='label'>Unidad</p>
-          <p className='important'>EDA -  Priorización</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.UNID_DESCRIPCION._text}
+          </p>
 
         </section>
         <section className='p-2'>
 
           <p className='label'>Despacho</p>
-          <p className='important'>375 FISCALIA 375</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.DESPACHO._text}
+          </p>
 
         </section>
         <section className='p-2'>
 
           <p className='label'>Fecha asignación</p>
-          <p className='important'>05 agosto 2024 - 22:44 am</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.FECHA_ASIGNACION._text}
+          </p>
 
         </section>
 
@@ -148,32 +168,42 @@ export const Results = () => {
 
         <section className='p-2'>
 
-          <p className='label'>Departamento</p>
+          <p className='label'>Departamento*</p>
           <p className='important'>Bogota D.C</p>
 
         </section>
         <section className='p-2'>
 
-          <p className='label'>Municiio</p>
+          <p className='label'>Municiio*</p>
           <p className='important'>Cundinamarca</p>
 
         </section>
         <section className='p-2'>
 
           <p className='label'>Dirección</p>
-          <p className='important'>Cr 28 # 18-61. Piso 2</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.UNID_DIRECCION._text}
+          </p>
 
         </section>
         <section className='p-2'>
 
           <p className='label'>Correo electrónico</p>
-          <p className='important'>nombres@fiscalia.gov.co</p>
+          <p className='important'>
+            {
+              jsonData?.RespuestaConsulta?.DatosRespuesta?.RegistroNumero?.DESP_CORREO?._text
+                ? jsonData.RespuestaConsulta.DatosRespuesta.RegistroNumero.DESP_CORREO._text
+                : 'Ninguno'
+            }
+          </p>
 
         </section>
         <section className='p-2'>
 
           <p className='label'>Teléfonos</p>
-          <p className='important'>604123456</p>
+          <p className='important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.UNID_TELEFONO._text}
+          </p>
 
         </section>
 
@@ -187,19 +217,12 @@ export const Results = () => {
         <section className='py-2'>
 
           <p className='label'>Delito</p>
-          <p className='important pb-4'>Hurto. Art 239 C.P. Agravado cuando lo hurtado son medio motorizados o lo que estos transporten ART. 241 C.P.N.6</p>
-          <span className='label block'>Grado del delito <span className='important'>Ninguno</span></span>
-          <span className='label block'>Estado <span className='important'>Activo</span></span>
-          <span className='label'>Referente? <span className='important'>Si</span></span>
-
-        </section>
-        <section className='py-2'>
-
-          <p className='label'>Delito</p>
-          <p className='important pb-4'>Hurto. Art 239 C.P. Agravado cuando lo hurtado son medio motorizados o lo que estos transporten ART. 241 C.P.N.6</p>
-          <span className='label block'>Grado del delito <span className='important'>Ninguno</span></span>
-          <span className='label block'>Estado <span className='important'>Activo</span></span>
-          <span className='label'>Referente? <span className='important'>Si</span></span>
+          <p className='important pb-4'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.DELITOS._text}
+          </p>
+          <span className='label block'>Grado del delito* <span className='important'>Ninguno</span></span>
+          <span className='label block'>Estado* <span className='important'>Activo</span></span>
+          <span className='label'>Referente?* <span className='important'>Si</span></span>
 
         </section>
 
@@ -218,26 +241,12 @@ export const Results = () => {
         </section>
         <section className='grid grid-flow-col grid-cols-3 items-center'>
 
-          <p className='col-span-1 text-right p-2 important'>10/Ene/2024 - 08:30 PM</p>
-          <p className='col-span-2 p-2 data'>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500</p>
-
-        </section>
-        <section className='grid grid-flow-col grid-cols-3 items-center'>
-
-          <p className='col-span-1 text-right p-2 important'>10/Ene/2024 - 08:30 PM</p>
-          <p className='col-span-2 p-2 data'>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500</p>
-
-        </section>
-        <section className='grid grid-flow-col grid-cols-3 items-center'>
-
-          <p className='col-span-1 text-right p-2 important'>10/Ene/2024 - 08:30 PM</p>
-          <p className='col-span-2 p-2 data'>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500</p>
-
-        </section>
-        <section className='grid grid-flow-col grid-cols-3 items-center'>
-
-          <p className='col-span-1 text-right p-2 important'>10/Ene/2024 - 08:30 PM</p>
-          <p className='col-span-2 p-2 data'>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500</p>
+          <p className='col-span-1 text-right p-2 important'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.FECHA_ULTIMA_ACTUACION._text}
+          </p>
+          <p className='col-span-2 p-2 data'>
+            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.ACTUACIONES._text}
+          </p>
 
         </section>
 
@@ -249,7 +258,9 @@ export const Results = () => {
       <section className='bg-blue label text-white grid grid-flow-col items-center place-content-between px-3 py-1 mb-4'>
 
         <section className='col-span-3 '>Fecha de consulta</section>
-        <section className='col-span-3 text-right'>01/22/2024 - 14:37 PM</section>
+        <section className='col-span-3 text-right'>
+          {jsonData?.RespuestaConsulta.EncabezadoRespuesta.FechaRespuesta._text}
+        </section>
 
       </section>
       {/* FIN FECHA DE CONSULTA */}
