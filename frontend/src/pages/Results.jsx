@@ -1,32 +1,43 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getData } from '../helpers/getData';
 import { useEffect, useState } from 'react';
+import { xml2json } from 'xml-js';
 
 export const Results = () => {
 
-  const [responseCase, setResponseCase] = useState()
   const location = useLocation();
   const navigate = useNavigate();
   const query = location.state?.query || ''
 
-  useEffect(() => {
+  const [jsonData, setJsonData] = useState([])
+  const [jsonData2, setJsonData2] = useState([])
 
-    const fetchData = async () => {
-      setResponseCase(await getData(query))
+  // useEffect(() => {
 
-    }
+  //   const fetchData = async () => {
 
-    fetchData()
+  //     setJsonData(await getData(query))
 
-  }, [query])
-  console.log(responseCase)
+  //   }
 
+  //   fetchData()
+
+  // }, [query])
+
+  
   const onPrint = () => {
     window.print()
   }
   const onBack = () => {
     navigate(-1)
   }
+  
+  setJsonData2({
+    name: "John Doe",
+    age: 30,
+    city: "New York"
+  })  
+  console.log(jsonData2)
 
   return (
 
@@ -46,7 +57,18 @@ export const Results = () => {
           <section className='border-r-slate-300 border-r col-span-4'>
 
             <p className='label'>Número de la Noticia Criminal</p>
-            <p className='important'>110016108112202400359</p>
+            
+              {
+              jsonData2.map((item, index) => (
+                  
+                <p className='important' key={index}>{item.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text}</p>
+                
+                ))
+              }
+
+            
+
+            {/* // JSON.stringify(jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text) */}
 
           </section>
           <section className='col-span-1 justify-center grid'>

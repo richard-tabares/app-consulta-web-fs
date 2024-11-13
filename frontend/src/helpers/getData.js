@@ -1,10 +1,21 @@
+import { xml2json } from 'xml-js';
 
 export const getData = async (query) => {
-    console.log(query)
 
-    const response = await fetch(`http://localhost:5173/data/${query}`)
+    const response = await fetch(`http://localhost:3000/data/${query}`)
+    // const response = await fetch(`http://localhost:3000/data/${query}`)
     const data = await response.text();
-    console.log(data)
-    return data;
+
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(data, "text/xml");
+
+    const result = xmlDoc.getElementsByTagName("return")[0].textContent;
+
+    const resultXml = xml2json(result, { compact: true, spaces: 2 });
+    const jsonData = JSON.parse(resultXml)
+
+    // const decodedXML = new DOMParser().parseFromString(result, "text/xml");
+
+    return jsonData;
 
 }
