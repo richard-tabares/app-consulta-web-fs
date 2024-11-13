@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-// import fetch from 'node-fetch'
+import fetch from 'node-fetch'
+import xml2js from 'xml2js'
 
 const app = express()
 
@@ -27,14 +28,13 @@ app.get('/data/:query', async (req, res) => {
     <ParametrosConsulta>
     <Parametro>
     <Llave>caso_noticia</Llave>
-    <Valor>11001609925219990004157</Valor>
+    <Valor>${query}</Valor>
     </Parametro>
     </ParametrosConsulta>
     </ConsultaConveniosWS>`
 
     const urlComplete = url + param + xml
 
-    console.log(url)
     const user = 'administrador'
     const pass = '123'
     const headers = {
@@ -52,7 +52,8 @@ app.get('/data/:query', async (req, res) => {
         }
 
         const data = await response.text();
-        res.send(data);
+        res.send(data)
+
     } catch (error) {
         res.status(500).json({ error: 'Error al consultar la API', message: error.message });
     }
