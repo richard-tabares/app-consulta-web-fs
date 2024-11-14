@@ -12,10 +12,9 @@ export const getData = async (query) => {
     const result = xmlDoc.getElementsByTagName("return")[0].textContent;
 
     const resultXml = xml2json(result, { compact: true, spaces: 2 });
-    const jsonData = JSON.parse(resultXml)
+    const resultJson = JSON.parse(resultXml)
+    const jsonData = resultJson.RespuestaConsulta
 
-    const xml = Object.values(jsonData);
-
-    return xml;
+    return jsonData;
 
 }

@@ -19,6 +19,7 @@ export const FormSearch = () => {
 
     const onSubmit = (e) => {
         e.preventDefault()
+        onQuery()
     }
 
     const onQuery = async () => {
@@ -26,7 +27,7 @@ export const FormSearch = () => {
         if (query.length == 23) {
             
             const data = await getData(query)
-            const hasData = data?.RespuestaConsulta?.DatosRespuesta?.RegistroNumero
+            const hasData = data?.DatosRespuesta?.RegistroNumero
             
             if (hasData) {
 

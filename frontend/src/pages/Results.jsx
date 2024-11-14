@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getData } from '../helpers/getData';
 import { useEffect, useState } from 'react';
+import { useSplitActuaciones } from '../Hooks/useSplitActuaciones';
+import { useSplitDelitos } from '../Hooks/useSplitDelitos';
 
 export const Results = () => {
 
@@ -22,6 +24,14 @@ export const Results = () => {
 
   }, [query])
 
+    
+  const stringActuaciones = String(jsonData?.DatosRespuesta?.RegistroNumero?.ACTUACIONES?._text)
+  const stringDelitos = String(jsonData?.DatosRespuesta?.RegistroNumero?.DELITOS?._text)
+
+  const dataActuaciones = useSplitActuaciones(stringActuaciones)
+  const dataDelitos = useSplitDelitos(stringDelitos)
+
+  // console.log(jsonData)
 
   const onPrint = () => {
     window.print()
@@ -29,14 +39,6 @@ export const Results = () => {
   const onBack = () => {
     navigate(-1)
   }
-
-  // const uno = [...jsonData]
-  // const dos = [uno[1]]
-  // const tres = dos
-  // console.log(uno)
-  // console.log(dos)
-  // console.log(tres[0].DatosRespuesta.RegistroNumero)
-  
 
   return (
 
@@ -57,25 +59,24 @@ export const Results = () => {
 
             <p className='label'>Número de la Noticia Criminal</p>
 
-            {/* {
-              jsonData.map((item, index) => (
-                  
-                <p className='important' key={index}>{item.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text}</p>
-                
-                ))
-              } */}
-
-
-            <p className='important'>{jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text}</p>
-            {/* <p className='important'>{ JSON.stringify(jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text) }</p> */}
-            {/* // JSON.stringify(jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text) */}
+            <p className='important'>
+              {
+                jsonData?.DatosRespuesta?.RegistroNumero?.CASO_NOTICIA?._text
+                  ? jsonData.DatosRespuesta.RegistroNumero.CASO_NOTICIA._text
+                  : 'Ninguno'
+              }
+            </p>
 
           </section>
           <section className='col-span-2 justify-center grid pl-2'>
 
             <p className='label'>Estado</p>
             <p className='important'>
-              {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_ESTADO._text}
+              {
+                jsonData?.DatosRespuesta?.RegistroNumero?.CASO_ESTADO?._text
+                  ? jsonData.DatosRespuesta.RegistroNumero.CASO_ESTADO._text
+                  : 'Ninguno'
+              }
             </p>
 
           </section>
@@ -86,7 +87,11 @@ export const Results = () => {
 
           <p className='label'>Etapa notcia criminal</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_ETAPA._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.CASO_ETAPA?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.CASO_ETAPA._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -94,7 +99,11 @@ export const Results = () => {
 
           <p className='label'>Departamentos hechos</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_DEPA_HECHO._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.CASO_DEPA_HECHO?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.CASO_DEPA_HECHO._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -102,7 +111,11 @@ export const Results = () => {
 
           <p className='label'>Municipios hechos</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_MUNI_HECHO._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.CASO_MUNI_HECHO?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.CASO_MUNI_HECHO._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -110,7 +123,11 @@ export const Results = () => {
 
           <p className='label'>Fechas hechos</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_FECHA_HECHOS._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.CASO_FECHA_HECHOS?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.CASO_FECHA_HECHOS._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -118,7 +135,11 @@ export const Results = () => {
 
           <p className='label'>Ley de aplicabilidad</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.CASO_LEY._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.CASO_LEY?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.CASO_LEY._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -135,7 +156,11 @@ export const Results = () => {
 
           <p className='label'>Seccional</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.UNID_SECCIONAL._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.UNID_SECCIONAL?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.UNID_SECCIONAL._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -143,7 +168,11 @@ export const Results = () => {
 
           <p className='label'>Unidad</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.UNID_DESCRIPCION._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.UNID_DESCRIPCION?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.UNID_DESCRIPCION._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -151,7 +180,11 @@ export const Results = () => {
 
           <p className='label'>Despacho</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.DESPACHO._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.DESPACHO?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.DESPACHO._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -159,7 +192,11 @@ export const Results = () => {
 
           <p className='label'>Fecha asignación</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.FECHA_ASIGNACION._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.FECHA_ASIGNACION?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.FECHA_ASIGNACION._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -182,7 +219,11 @@ export const Results = () => {
 
           <p className='label'>Dirección</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.UNID_DIRECCION._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.UNID_DIRECCION?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.UNID_DIRECCION._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -191,8 +232,8 @@ export const Results = () => {
           <p className='label'>Correo electrónico</p>
           <p className='important'>
             {
-              jsonData?.RespuestaConsulta?.DatosRespuesta?.RegistroNumero?.DESP_CORREO?._text
-                ? jsonData.RespuestaConsulta.DatosRespuesta.RegistroNumero.DESP_CORREO._text
+              jsonData?.DatosRespuesta?.RegistroNumero?.DESP_CORREO?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.DESP_CORREO._text
                 : 'Ninguno'
             }
           </p>
@@ -202,7 +243,11 @@ export const Results = () => {
 
           <p className='label'>Teléfonos</p>
           <p className='important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.UNID_TELEFONO._text}
+            {
+              jsonData?.DatosRespuesta?.RegistroNumero?.UNID_TELEFONO?._text
+                ? jsonData.DatosRespuesta.RegistroNumero.UNID_TELEFONO._text
+                : 'Ninguno'
+            }
           </p>
 
         </section>
@@ -214,17 +259,24 @@ export const Results = () => {
       {/* INICIO DELITO */}
       <section className='bg-background rounded-md px-3 py-1 border border-line grid gap-3 justify-between items-center divide-y divide-slate-300'>
 
-        <section className='py-2'>
+        {
 
-          <p className='label'>Delito</p>
-          <p className='important pb-4'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.DELITOS._text}
-          </p>
-          <span className='label block'>Grado del delito* <span className='important'>Ninguno</span></span>
-          <span className='label block'>Estado* <span className='important'>Activo</span></span>
-          <span className='label'>Referente?* <span className='important'>Si</span></span>
+          dataDelitos.map((item, index) => (
 
-        </section>
+            <section className='py-2' key={index}>
+
+              <p className='label'>Delito</p>
+              <p className='important pb-4'>
+                {item.delito}
+              </p>
+              <span className='label block'>Grado del delito* <span className='important'>{item.grado}</span></span>
+              <span className='label block'>Estado* <span className='important'>{item.estado}</span></span>
+              <span className='label'>Referente?* <span className='important'>{item.referente}</span></span>
+
+            </section>
+
+          ))
+        }
 
       </section>
       {/* FIN DELITO */}
@@ -239,17 +291,24 @@ export const Results = () => {
           <p className='col-span-2 p-2 important'>Nombre actuación</p>
 
         </section>
-        <section className='grid grid-flow-col grid-cols-3 items-center'>
 
-          <p className='col-span-1 text-right p-2 important'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.FECHA_ULTIMA_ACTUACION._text}
-          </p>
-          <p className='col-span-2 p-2 data'>
-            {jsonData?.RespuestaConsulta.DatosRespuesta.RegistroNumero.ACTUACIONES._text}
-          </p>
+        {
 
-        </section>
+          dataActuaciones.map((item, index) => (
+            <section className='grid grid-flow-col grid-cols-3 items-center' key={index}>
 
+              <p className='col-span-1 text-right p-2 important'>
+                {item.fecha}
+              </p>
+
+              <p className='col-span-2 p-2 data'>
+                {item.actuacion}
+              </p>
+
+            </section>
+
+          ))
+        }
 
       </section>
       {/* FIN ACTUACIONES */}
@@ -259,7 +318,11 @@ export const Results = () => {
 
         <section className='col-span-3 '>Fecha de consulta</section>
         <section className='col-span-3 text-right'>
-          {jsonData?.RespuestaConsulta.EncabezadoRespuesta.FechaRespuesta._text}
+          {
+            jsonData?.EncabezadoRespuesta?.FechaRespuesta?._text
+              ? jsonData?.EncabezadoRespuesta.FechaRespuesta._text
+              : 'Ninguno'
+          }
         </section>
 
       </section>
