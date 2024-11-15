@@ -37,6 +37,7 @@ app.get('/data/:query', async (req, res) => {
 
     const user = 'administrador'
     const pass = '123'
+    
     const headers = {
         'Authorization': `Basic ${Buffer.from(`${user}:${pass}`).toString('base64')}`,
         'Content-Type': 'text/xml'

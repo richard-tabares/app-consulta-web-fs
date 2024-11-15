@@ -14,6 +14,7 @@ export const getData = async (query) => {
     const resultXml = xml2json(result, { compact: true, spaces: 2 });
     const resultJson = JSON.parse(resultXml)
     const jsonData = resultJson.RespuestaConsulta
+    console.log(jsonData)
 
     return jsonData;
 

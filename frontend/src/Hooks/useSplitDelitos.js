@@ -6,9 +6,9 @@ export const useSplitDelitos = (stringData) => {
 
     useEffect(() => {
 
-        const resArray = stringData.split(' - ').map(item => {
+        const resArray = stringData.split('|').map(item => {
 
-            const [delito, grado, estado, referente] = item.split(';')
+            const [delito, grado, estado, referente] = item.split('#')
 
             return { delito, grado, estado, referente }
         })

@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Message } from '../components/Message'
-import { useForm } from '../Hooks/useForm'
+import { useForm } from '../hooks/useForm'
 import { useNavigate } from 'react-router-dom'
 import { getData } from '../helpers/getData'
+import ReCAPTCHA from "react-google-recaptcha"
 
-export const FormSearch = () => {
+export const PageFormSearch = () => {
 
     const [message, setMessage] = useState()
     const [messageState, setMessageState] = useState(true)
-    const [jsonData, setJsonData] = useState()
+    const [captcha, setCaptcha] = useState(false)
+    const captchaRef = useRef(null)
     const navigate = useNavigate()
 
     const initialQuery = {
@@ -24,22 +26,29 @@ export const FormSearch = () => {
 
     const onQuery = async () => {
 
-        if (query.length == 23) {
-            
+        if (query.length == 21) {
+
             const data = await getData(query)
             const hasData = data?.DatosRespuesta?.RegistroNumero
-            
-            if (hasData) {
 
-                setJsonData(data)
+            if (captcha) {
+                if (hasData) {
 
-                setMessageState(false)
-                navigate('/consulta', { state: { query } })
+                    setMessageState(false)
+                    navigate('/consulta', { state: { query } })
 
+                } else {
+
+                    setMessageState(true)
+                    setMessage('Número de la denuncia no existe, revisa el número de caso')
+
+                }
+                
             } else {
-
+                
                 setMessageState(true)
-                setMessage('Número de la denuncia no existe, revisa el número de caso')
+                setMessage('Debes validar el reCAPTCHA')
+
             }
 
         } else {
@@ -51,9 +60,15 @@ export const FormSearch = () => {
 
     }
 
+    const onChangeCaptcha = () => {
+
+        captchaRef.current.getValue() && setCaptcha(true)
+
+    }
+
     return (
 
-        <section className="content-main">
+        <section className="content-main w-min-[324px]">
 
             <form onSubmit={onSubmit}>
 
@@ -75,6 +90,12 @@ export const FormSearch = () => {
                     />
                     <p className="important font-thin text-sm justify-self-end">Número de 21 digitos</p>
 
+                    <ReCAPTCHA
+                        ref={captchaRef}
+                        sitekey="6LfpGIAqAAAAAHypuhQxJlzWFooMYf1Ln3Q9H8fu"
+                        onChange={onChangeCaptcha}
+                    />
+
                 </section>
 
                 {
@@ -84,7 +105,7 @@ export const FormSearch = () => {
                 <input
                     type="button"
                     value="Buscar"
-                    className="btn-send mt-6"
+                    className="btn-send mt-6 cursor-pointer"
                     onClick={onQuery}
                 />
             </form>

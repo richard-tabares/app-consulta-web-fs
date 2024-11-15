@@ -6,9 +6,9 @@ export const useSplitActuaciones = (stringData) => {
 
     useEffect(() => {
 
-        const resArray = stringData.split(' - ').map(item => {
+        const resArray = stringData.split('|').map(item => {
 
-            const [fecha, actuacion] = item.split(';')
+            const [fecha, actuacion] = item.split('#')
 
             return { fecha, actuacion }
         })
