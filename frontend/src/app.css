@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* FONTS */
+@layer base {
+    @font-face {
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(../public/Roboto-Regular.ttf) format("woff2");
+    }
+}
+
+/* ESTILOS GENERALES PARA LA APLICACION */
+@layer base {
+
+    .btn-send {
+        @apply bg-link px-8 py-2 w-full text-white cursor-pointer
+    }
+    .input-search {
+        @apply p-3 border border-line
+    }
+    .content-main {
+        @apply bg-background p-4 w-auto border border-line rounded-md
+    }
+    .title {
+        @apply font-semibold text-blue text-[1.5rem]
+
+    }
+    .important {
+        @apply font-semibold text-blue text-[0.9rem]
+
+    }
+    .label {
+        @apply text-label text-[0.875rem]
+
+    }
+    .data {
+        @apply text-blue text-[0.875rem]
+
+    }
+    .title-table {
+        @apply font-semibold text-label text-[1rem]
+
+    }
+    .message{
+        @apply font-normal text-red-900 text-sm
+    }
+    .bg-lable-gray{
+        @apply bg-background border border-line px-3 py-1 rounded-md grid grid-flow-col justify-between items-center
+    }
+
+
+}
